@@ -271,7 +271,7 @@ the runtime's ICU: pin such answers in `data/` with a generator script.
 4. New behaviour comes with a test, and a line in the docs if users will notice it.
 5. Sign off every commit (see below).
 6. Leave the version numbers and `CHANGELOG.md` versions alone, and don't push tags: a
-   maintainer does those when releasing ([RELEASING.md](RELEASING.md)).
+   maintainer does those when releasing.
 
 ## Sign-off (DCO)
 

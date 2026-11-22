@@ -15,7 +15,7 @@ from ._registry import FrozenDict, Value, extend, type_of, types
 from ._lib.errors import ValidationError
 from ._struct import Struct, struct
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 names = types.names
 # ``all`` mirrors the JavaScript export; import it as ``chadc00per_typeset.all`` (it is

@@ -1,13 +1,14 @@
 # Publishes both packages when a version tag (v1.2.3) is pushed, after the full CI passes.
 # No tokens are stored: npm and PyPI trust this workflow through OIDC, and npm records provenance.
 # PyPI publishes directly; npm stages the version, which a maintainer approves with 2FA on npmjs.com.
-# One-time setup (see RELEASING.md): add this workflow as a trusted publisher on npmjs.com
-# and pypi.org, and create the "npm" and "pypi" environments in the repository settings.
+# One-time setup: add this workflow as a trusted publisher on npmjs.com (environment "npm",
+# "Allow npm publish" unticked so it can only stage) and pypi.org (environment "pypi"), and
+# create the "npm" and "pypi" environments in the repository settings.
 #
 # Forks: every job is skipped outside chadc00per/typeset, so a fork that pushes a v* tag
 # runs nothing here (and the registries trust only this repository anyway). To publish a
 # fork under your own names, change the repository check below, the package names, and
-# set up your own trusted publishers (RELEASING.md).
+# set up your own trusted publishers.
 #
 # The packages are built in jobs without an OIDC token, so no build or install script can
 # mint one; the publish jobs only upload what the build produced.

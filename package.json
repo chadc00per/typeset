@@ -1,6 +1,6 @@
 {
   "name": "@chadc00per/typeset",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Semantic field types: canonical normalize/validate, a constructor per type, and picker metadata. ES modules, CommonJS, React and plain browser scripts.",
   "keywords": [
     "types",

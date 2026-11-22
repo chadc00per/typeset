@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "chadc00per-typeset"
-version = "1.0.0"
+version = "1.0.1"
 description = "Semantic field types: canonical normalize/validate, a class per type, and picker metadata. The Python twin of the @chadc00per/typeset npm package."
 readme = "python/README.md"
 requires-python = ">=3.10"
