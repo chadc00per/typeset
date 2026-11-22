@@ -1,0 +1,14 @@
+@chadc00per/typeset (npm) / chadc00per-typeset (PyPI)
+Copyright 2025-2026 Chad Cooper
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+This product includes third-party material under its own licenses:
+code ported from @hapi/address (BSD-3-Clause, Copyright (c) 2019-2022
+Sideway, Inc. and Project contributors), regular expressions from Node.js
+(MIT, Copyright Node.js contributors), and Unicode CLDR and emoji data
+(Unicode License v3, Copyright (c) 2004-2025 Unicode, Inc.).
+See THIRD-PARTY-NOTICES.md and data/UNICODE-LICENSE.txt.
+
+The browser builds (js/dist/typeset.browser.js, js/dist/typeset.global.js) bundle
+third-party packages under their own licenses: see js/dist/THIRD-PARTY-LICENSES.txt.

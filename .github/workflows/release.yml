@@ -1,0 +1,73 @@
+# Publishes both packages when a version tag (v1.2.3) is pushed, after the full CI passes.
+# No tokens are stored: npm and PyPI trust this workflow through OIDC, and npm records provenance.
+# One-time setup (see CONTRIBUTING.md): add this workflow as a trusted publisher on npmjs.com
+# and pypi.org, and create the "npm" and "pypi" environments in the repository settings.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  versions:
+    name: Tag matches both versions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compare versions
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          js_version=$(node -p "require('./package.json').version")
+          python_version=$(python3 -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          echo "tag $TAG, npm $js_version, python $python_version"
+          test "$TAG" = "v$js_version" && test "$TAG" = "v$python_version"
+
+  ci:
+    needs: versions
+    uses: ./.github/workflows/ci.yml
+
+  npm:
+    name: Publish to npm
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@^11.5.1 # trusted publishing needs 11.5.1+
+      - run: npm ci
+      - run: npm publish --provenance --access public
+
+  pypi:
+    name: Publish to PyPI
+    needs: ci
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - run: python -m pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
+        with:
+          packages-dir: dist/

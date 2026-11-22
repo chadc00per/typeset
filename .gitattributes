@@ -1,0 +1,9 @@
+# One line ending everywhere: the tests compare text byte for byte, on Windows too.
+* text=auto eol=lf
+
+# Generated files: collapsed in diffs and left out of language statistics.
+conformance/** linguist-generated
+data/catalog.json linguist-generated
+python/chadc00per_typeset/__init__.pyi linguist-generated
+python/chadc00per_typeset/_parsers.js linguist-generated
+python/chadc00per_typeset/_parsers.LICENSES.txt linguist-generated

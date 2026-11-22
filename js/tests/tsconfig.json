@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "es2022",
+    "skipLibCheck": false,
+    "lib": [
+      "es2022",
+      "dom",
+      "esnext.disposable"
+    ]
+  },
+  "files": [
+    "typings.check.ts"
+  ]
+}

@@ -1,0 +1,102 @@
+# Both packages answer to the same shared contract (data/catalog.json and
+# conformance/): the JavaScript reference must match what it generated,
+# and Python must match it exactly.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call: # the release workflow runs all of this first
+
+permissions:
+  contents: read
+
+jobs:
+  javascript:
+    name: Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["22.12", "22", "24", "26"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test # builds js/dist/ first
+      # The tooling checks need a current Node (ESLint needs 22.13+); one run covers them.
+      - if: matrix.node == '24'
+        run: npm run lint && npm run typecheck
+      # The committed contract is what JavaScript produces today.
+      - if: matrix.node == '24'
+        run: npm run conformance && git diff --exit-code data/catalog.json conformance/
+      - if: matrix.node == '24'
+        run: npm pack --dry-run
+
+  python:
+    name: Python ${{ matrix.python }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.10", "3.11", "3.12", "3.13", "3.14", "3.15"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python }}
+          allow-prereleases: true
+      - run: python -m pip install --upgrade "pip>=25.1"
+      - run: python -m pip install -e ".[all]" --group test --group lint
+      - run: python -m ruff check python
+      - run: python -m mypy --strict python/tests/typing_check.py
+      - run: python -m pytest
+
+  python-minimal:
+    # Without the extras, the types they serve raise ModuleNotFoundError on every call
+    # (test_integrations.py) and every other type answers its vectors.
+    name: Python without extras
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - run: python -m pip install --upgrade "pip>=25.1"
+      - run: python -m pip install -e . --group test
+      - run: python -c "import importlib.util as u; assert not u.find_spec('phonenumbers') and not u.find_spec('py_mini_racer')"
+      - run: python -m pytest
+
+  wheel:
+    name: Wheel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.13"
+      - run: python -m pip install build && python -m build
+      # The installed wheel carries its data and catalog: run it from outside the checkout.
+      - run: |
+          python -m venv /tmp/wheel && /tmp/wheel/bin/pip install "$(ls dist/*.whl)[all]"
+          cd /tmp && /tmp/wheel/bin/python -c "
+          import chadc00per_typeset as typeset
+          assert typeset.Email(' Ada@Example.COM ') == 'ada@example.com'
+          assert typeset.Phone.normalize('(212) 555-0123') == '+12125550123'
+          assert typeset.TimeZone.normalize('us/eastern') == 'America/New_York'
+          assert typeset.Locale.normalize('en_us') == 'en-US'
+          assert len(typeset.describe()) == len(typeset.all)
+          print('wheel ok')"

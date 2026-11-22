@@ -1,0 +1,2793 @@
+{
+ "aliases": {
+  "state": "region",
+  "str": "string",
+  "num": "number",
+  "bool": "boolean"
+ },
+ "runtimeSpecific": {
+  "function": {
+   "python": {
+    "example": "lambda a, b: a + b"
+   }
+  }
+ },
+ "constructors": {
+  "email": "Email",
+  "phone": "Phone",
+  "url": "Url",
+  "uri": "Uri",
+  "domain": "Domain",
+  "hostname": "Hostname",
+  "ip": "Ip",
+  "ipaddress": "IpAddress",
+  "iprange": "IpRange",
+  "mimetype": "MimeType",
+  "contenttype": "ContentType",
+  "place": "Place",
+  "postalcode": "PostalCode",
+  "language": "Language",
+  "country": "Country",
+  "region": "Region",
+  "locale": "Locale",
+  "continent": "Continent",
+  "ratio": "Ratio",
+  "timezone": "TimeZone",
+  "weekday": "Weekday",
+  "month": "Month",
+  "roman": "Roman",
+  "barcode": "Barcode",
+  "isbn": "Isbn",
+  "upc": "Upc",
+  "gtin": "Gtin",
+  "asin": "Asin",
+  "imei": "Imei",
+  "vatnumber": "VatNumber",
+  "integer": "Integer",
+  "int32": "Int32",
+  "smallint": "SmallInt",
+  "uint8": "UInt8",
+  "uint16": "UInt16",
+  "uint32": "UInt32",
+  "decimal": "Decimal",
+  "percentage": "Percentage",
+  "fraction": "Fraction",
+  "angle": "Angle",
+  "probability": "Probability",
+  "multiplier": "Multiplier",
+  "datetimewindow": "DateTimeWindow",
+  "expiry": "Expiry",
+  "ttl": "Ttl",
+  "bytes": "Bytes",
+  "interval": "Interval",
+  "day": "Day",
+  "time": "Time",
+  "year": "Year",
+  "yearmonth": "YearMonth",
+  "isoweek": "IsoWeek",
+  "monthday": "MonthDay",
+  "resolution": "Resolution",
+  "numberrange": "NumberRange",
+  "vtt": "Vtt",
+  "vttrange": "VttRange",
+  "srt": "Srt",
+  "srtrange": "SrtRange",
+  "timecode": "Timecode",
+  "timeprecision": "TimePrecision",
+  "compassdirection": "CompassDirection",
+  "semver": "Semver",
+  "semverrange": "SemverRange",
+  "etag": "Etag",
+  "celsius": "Celsius",
+  "fahrenheit": "Fahrenheit",
+  "kelvin": "Kelvin",
+  "matrix": "Matrix",
+  "transformmatrix": "TransformMatrix",
+  "cron": "Cron",
+  "fiscalperiod": "FiscalPeriod",
+  "color": "Color",
+  "emoji": "Emoji",
+  "font": "Font",
+  "base64": "Base64",
+  "base64url": "Base64Url",
+  "uuid": "Uuid",
+  "ulid": "Ulid",
+  "regex": "Regex",
+  "function": "Fn",
+  "javascript": "JavaScript",
+  "python": "Python",
+  "html": "Html",
+  "css": "Css",
+  "svg": "Svg",
+  "tag": "Tag",
+  "tagset": "TagSet",
+  "scopes": "Scopes",
+  "currency": "Currency",
+  "money": "Money",
+  "geo": "Geo",
+  "geohash": "Geohash",
+  "pluscode": "PlusCode",
+  "geojson": "GeoJson",
+  "xy": "XY",
+  "xyz": "XYZ"
+ },
+ "types": [
+  {
+   "name": "string",
+   "label": "Text",
+   "noun": "text",
+   "description": "Text",
+   "example": "Ada Lovelace",
+   "aliases": [
+    "str"
+   ],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "number",
+   "label": "Number",
+   "noun": "number",
+   "description": "Double-precision number",
+   "example": "3.14",
+   "aliases": [
+    "num"
+   ],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number"
+   }
+  },
+  {
+   "name": "boolean",
+   "label": "Boolean",
+   "noun": "boolean",
+   "description": "true or false",
+   "example": "true",
+   "aliases": [
+    "bool"
+   ],
+   "storage": "boolean",
+   "wire": "boolean",
+   "collation": "numeric",
+   "constraints": "none",
+   "ui": {
+    "control": "boolean"
+   }
+  },
+  {
+   "name": "date",
+   "label": "Date and Time",
+   "noun": "date and time",
+   "description": "Moment in time; ISO timestamps and epoch milliseconds accepted",
+   "example": "2026-05-15T14:30:00.000Z",
+   "aliases": [],
+   "storage": "date",
+   "wire": "date",
+   "collation": "numeric",
+   "constraints": "none",
+   "ui": {
+    "control": "datetime"
+   }
+  },
+  {
+   "name": "bigint",
+   "label": "Big Integer",
+   "noun": "big integer",
+   "description": "Arbitrary-precision signed whole number; digits on the JSON wire",
+   "example": "9007199254740993",
+   "aliases": [],
+   "storage": "bigint",
+   "wire": "bigint",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "email",
+   "label": "Email",
+   "noun": "email address",
+   "description": "Email address, normalized",
+   "example": "ada@example.com",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "none",
+   "ui": {
+    "control": "email"
+   }
+  },
+  {
+   "name": "phone",
+   "label": "Phone",
+   "noun": "phone number",
+   "description": "Phone number, normalized to E.164",
+   "example": "+12125550123",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "none",
+   "ui": {
+    "control": "tel"
+   }
+  },
+  {
+   "name": "url",
+   "label": "URL",
+   "noun": "URL",
+   "description": "Absolute HTTP(S) URL",
+   "example": "https://example.com/products?id=123",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "url"
+   }
+  },
+  {
+   "name": "uri",
+   "label": "URI",
+   "noun": "URI",
+   "description": "Absolute RFC 3986 URI of any scheme (mailto:, tel:, urn:, s3://…)",
+   "example": "mailto:ada@example.com",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "url"
+   }
+  },
+  {
+   "name": "domain",
+   "label": "Domain",
+   "noun": "domain name",
+   "description": "DNS domain with at least two labels (not a public-suffix lookup)",
+   "example": "example.com",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "hostname",
+   "label": "Hostname",
+   "noun": "hostname",
+   "description": "DNS hostname, including single-label local names",
+   "example": "api.example.com",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "ip",
+   "label": "IP and Port",
+   "noun": "IP address with optional port",
+   "description": "IPv4 or IPv6 address, optionally with a port (bracket IPv6 endpoints)",
+   "example": "192.168.1.100:8080",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "ipaddress",
+   "label": "IP Address",
+   "noun": "IP address",
+   "description": "IPv4 or IPv6 address, no port or zone",
+   "example": "2001:db8::1",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "iprange",
+   "label": "IP Range (CIDR)",
+   "noun": "IP range",
+   "description": "IPv4 or IPv6 CIDR block, network address with zero host bits",
+   "example": "10.0.0.0/8",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "mimetype",
+   "label": "Media Type",
+   "noun": "media type",
+   "description": "Bare media type without parameters or wildcards",
+   "example": "video/mp4",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "contenttype",
+   "label": "Content Type",
+   "noun": "content type",
+   "description": "Media type with optional parameters",
+   "example": "application/json; charset=utf-8",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "place",
+   "label": "Place (Google Place ID)",
+   "noun": "Google Place ID",
+   "description": "Opaque Google Place ID (no existence lookup)",
+   "example": "ChIJd8BlQ2BZwokRAFUEcm_qrcA",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "postalcode",
+   "label": "Postal Code",
+   "noun": "postal code",
+   "description": "Postal code, uppercase without spaces or hyphens (structural validation)",
+   "example": "10001",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "language",
+   "label": "Language",
+   "noun": "language code",
+   "description": "Registered language code, canonical lowercase",
+   "example": "en",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "country",
+   "label": "Country",
+   "noun": "country code",
+   "description": "Registered CLDR country or territory code, uppercase",
+   "example": "US",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "region",
+   "label": "Region / State",
+   "noun": "region code",
+   "description": "Registered subdivision code, uppercase and country-qualified",
+   "example": "US-NY",
+   "aliases": [
+    "state"
+   ],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "locale",
+   "label": "Locale",
+   "noun": "locale",
+   "description": "Canonical Unicode BCP 47 locale identifier",
+   "example": "en-US",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "continent",
+   "label": "Continent",
+   "noun": "continent",
+   "description": "Continent code: AF, AN, AS, EU, NA, OC, SA",
+   "example": "EU",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "select",
+    "options": [
+     "AF",
+     "AN",
+     "AS",
+     "EU",
+     "NA",
+     "OC",
+     "SA"
+    ]
+   }
+  },
+  {
+   "name": "ratio",
+   "label": "Ratio",
+   "noun": "ratio",
+   "description": "Exact nonnegative ratio, reduced to integer numerator:denominator",
+   "example": "16:9",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "timezone",
+   "label": "Time Zone",
+   "noun": "time zone",
+   "description": "IANA time zone, canonical name from the pinned zone table",
+   "example": "America/New_York",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "weekday",
+   "label": "Weekday",
+   "noun": "weekday",
+   "description": "English weekday name, lowercase",
+   "example": "monday",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "select",
+    "options": [
+     "monday",
+     "tuesday",
+     "wednesday",
+     "thursday",
+     "friday",
+     "saturday",
+     "sunday"
+    ]
+   }
+  },
+  {
+   "name": "month",
+   "label": "Month",
+   "noun": "month",
+   "description": "English month name, lowercase",
+   "example": "october",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "select",
+    "options": [
+     "january",
+     "february",
+     "march",
+     "april",
+     "may",
+     "june",
+     "july",
+     "august",
+     "september",
+     "october",
+     "november",
+     "december"
+    ]
+   }
+  },
+  {
+   "name": "roman",
+   "label": "Roman Numeral",
+   "noun": "Roman numeral",
+   "description": "Canonical uppercase Roman numeral, 1 through 3999",
+   "example": "XV",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "barcode",
+   "label": "Barcode",
+   "noun": "barcode",
+   "description": "Opaque printable ASCII barcode payload, case and spaces preserved",
+   "example": "012345678905",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "isbn",
+   "label": "ISBN",
+   "noun": "ISBN",
+   "description": "Checksum-validated ISBN-10 or ISBN-13, stored as ISBN-13",
+   "example": "9780131103627",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "upc",
+   "label": "UPC-A",
+   "noun": "UPC-A",
+   "description": "Checksum-validated 12-digit UPC-A, leading zeros preserved",
+   "example": "012345678905",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "gtin",
+   "label": "GTIN",
+   "noun": "GTIN",
+   "description": "Checksum-validated GTIN-8/12/13/14, stored as 14 digits",
+   "example": "00012345600012",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "asin",
+   "label": "ASIN",
+   "noun": "ASIN",
+   "description": "Amazon ASIN: a valid ISBN-10 or B and nine letters or digits",
+   "example": "B07XJWD3KY",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "imei",
+   "label": "IMEI",
+   "noun": "IMEI",
+   "description": "Checksum-validated 15-digit IMEI",
+   "example": "490154203237518",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "vatnumber",
+   "label": "VAT Number",
+   "noun": "VAT number",
+   "description": "VAT number with its country prefix (EU, XI, GB, CH, NO); structural check",
+   "example": "DE123456789",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "integer",
+   "label": "Integer",
+   "noun": "integer",
+   "description": "Safe signed whole number",
+   "example": "42",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "int32",
+   "label": "Int32",
+   "noun": "signed 32-bit integer",
+   "description": "Signed 32-bit integer",
+   "example": "2147483647",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "smallint",
+   "label": "Small Integer",
+   "noun": "signed 16-bit integer",
+   "description": "Signed 16-bit integer",
+   "example": "32767",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "uint8",
+   "label": "UInt8",
+   "noun": "unsigned 8-bit integer",
+   "description": "Unsigned 8-bit integer",
+   "example": "255",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "uint16",
+   "label": "UInt16",
+   "noun": "unsigned 16-bit integer",
+   "description": "Unsigned 16-bit integer",
+   "example": "65535",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "uint32",
+   "label": "UInt32",
+   "noun": "unsigned 32-bit integer",
+   "description": "Unsigned 32-bit integer",
+   "example": "4294967295",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "decimal",
+   "label": "Decimal",
+   "noun": "decimal",
+   "description": "Exact decimal number kept as text, no floating-point rounding",
+   "example": "1234.5678",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "percentage",
+   "label": "Percentage",
+   "noun": "percentage",
+   "description": "Percentage points, 0 through 100",
+   "example": "25%",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "fraction",
+   "label": "Fraction",
+   "noun": "fraction",
+   "description": "Fraction of a whole, 0 through 1",
+   "example": "1/4",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "angle",
+   "label": "Angle",
+   "noun": "angle",
+   "description": "Degrees normalized into [0, 360)",
+   "example": "450deg",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "probability",
+   "label": "Probability",
+   "noun": "probability",
+   "description": "Probability, 0 through 1",
+   "example": "0.75",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "multiplier",
+   "label": "Multiplier",
+   "noun": "multiplier",
+   "description": "Nonnegative finite multiplier",
+   "example": "2x",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "datetimewindow",
+   "label": "Date-Time Window",
+   "noun": "date-time window",
+   "description": "Ordered inclusive pair of UTC ISO timestamps",
+   "example": "[\"2026-01-01T00:00:00Z\", \"2026-12-31T23:59:59Z\"]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "none",
+   "ui": {
+    "control": "datetimewindow"
+   }
+  },
+  {
+   "name": "expiry",
+   "label": "Expiry",
+   "noun": "expiry",
+   "description": "UTC ISO timestamp; relative durations resolve at normalization time",
+   "example": "2026-12-31T23:59:59Z",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "ttl",
+   "label": "TTL",
+   "noun": "TTL in seconds",
+   "description": "Nonnegative safe whole seconds; no automatic deletion",
+   "example": "3600",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "number",
+    "step": 1
+   }
+  },
+  {
+   "name": "bytes",
+   "label": "Bytes",
+   "noun": "byte count",
+   "description": "Data size in whole bytes; SI (kB) and IEC (KiB) units accepted",
+   "example": "1.5 MB",
+   "aliases": [],
+   "storage": "number",
+   "wire": "number",
+   "collation": "numeric",
+   "constraints": "value",
+   "ui": {
+    "control": "text",
+    "step": 1
+   }
+  },
+  {
+   "name": "interval",
+   "label": "Interval",
+   "noun": "interval",
+   "description": "Nonnegative ISO duration; calendar months preserved, numeric input is milliseconds",
+   "example": "P1Y2M",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "day",
+   "label": "Day",
+   "noun": "day",
+   "description": "Gregorian calendar day, no timezone",
+   "example": "2026-05-15",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "date"
+   }
+  },
+  {
+   "name": "time",
+   "label": "Time",
+   "noun": "time",
+   "description": "Local wall-clock time, millisecond precision, no timezone",
+   "example": "14:30:00.000",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "time",
+    "step": 0.001
+   }
+  },
+  {
+   "name": "year",
+   "label": "Year",
+   "noun": "year",
+   "description": "Gregorian year YYYY, 0001..9999",
+   "example": "2026",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "yearmonth",
+   "label": "Year and Month",
+   "noun": "year and month",
+   "description": "Gregorian year and month YYYY-MM, no timezone",
+   "example": "2026-05",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "month"
+   }
+  },
+  {
+   "name": "isoweek",
+   "label": "ISO Week",
+   "noun": "ISO week",
+   "description": "ISO 8601 week YYYY-Www",
+   "example": "2026-W20",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "week"
+   }
+  },
+  {
+   "name": "monthday",
+   "label": "Month and Day",
+   "noun": "month and day",
+   "description": "Recurring month and day --MM-DD, no year",
+   "example": "--05-15",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "value",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "resolution",
+   "label": "Resolution",
+   "noun": "resolution",
+   "description": "Positive pixel dimensions WIDTHxHEIGHT",
+   "example": "1920x1080",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "numberrange",
+   "label": "Number Range",
+   "noun": "number range",
+   "description": "Ordered inclusive exact decimal endpoints, canonical LOW-HIGH",
+   "example": "1-4",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "vtt",
+   "label": "WebVTT Timestamp",
+   "noun": "WebVTT timestamp",
+   "description": "WebVTT timestamp offset, millisecond precision",
+   "example": "00:00:00.000",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "vttrange",
+   "label": "WebVTT Cue Timing",
+   "noun": "WebVTT cue timing",
+   "description": "WebVTT cue timing with strictly increasing endpoints",
+   "example": "00:00:00.000 --> 00:00:02.000",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "srt",
+   "label": "SubRip Timestamp",
+   "noun": "SubRip timestamp",
+   "description": "SubRip timestamp offset, millisecond precision",
+   "example": "00:00:01,000",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "srtrange",
+   "label": "SubRip Cue Timing",
+   "noun": "SubRip cue timing",
+   "description": "SubRip cue timing with strictly increasing endpoints",
+   "example": "00:00:01,000 --> 00:00:04,000",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "timecode",
+   "label": "Timecode (SMPTE)",
+   "noun": "SMPTE timecode",
+   "description": "SMPTE timecode HH:MM:SS:FF; a ; before the frames marks 29.97 drop-frame",
+   "example": "01:00:00:00",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "timeprecision",
+   "label": "Time Precision",
+   "noun": "time precision",
+   "description": "Fixed time precision unit: ns, us, ms, s, m, h, d",
+   "example": "ms",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "select",
+    "options": [
+     "ns",
+     "us",
+     "ms",
+     "s",
+     "m",
+     "h",
+     "d"
+    ]
+   }
+  },
+  {
+   "name": "compassdirection",
+   "label": "Compass Direction",
+   "noun": "compass direction",
+   "description": "Sixteen-point compass direction, uppercase",
+   "example": "NW",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "select",
+    "options": [
+     "N",
+     "NNE",
+     "NE",
+     "ENE",
+     "E",
+     "ESE",
+     "SE",
+     "SSE",
+     "S",
+     "SSW",
+     "SW",
+     "WSW",
+     "W",
+     "WNW",
+     "NW",
+     "NNW"
+    ]
+   }
+  },
+  {
+   "name": "semver",
+   "label": "Semantic Version",
+   "noun": "semantic version",
+   "description": "Semantic Versioning 2.0.0 version, including prerelease/build identifiers",
+   "example": "2.4.1",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "semverrange",
+   "label": "Semver Range",
+   "noun": "semver range",
+   "description": "npm-style semver range: comparators, ~, ^, hyphen ranges, wildcards, ||",
+   "example": ">=1.2.0 <2",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "etag",
+   "label": "ETag",
+   "noun": "ETag",
+   "description": "HTTP entity tag: case-sensitive opaque payload, strong or weak",
+   "example": "\"a1b2c3d4\"",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "celsius",
+   "label": "Celsius",
+   "noun": "Celsius temperature",
+   "description": "Celsius temperature string, explicit °C, at or above absolute zero",
+   "example": "52°C",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "fahrenheit",
+   "label": "Fahrenheit",
+   "noun": "Fahrenheit temperature",
+   "description": "Fahrenheit temperature string, explicit °F, at or above absolute zero",
+   "example": "125.6°F",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "kelvin",
+   "label": "Kelvin",
+   "noun": "Kelvin temperature",
+   "description": "Kelvin temperature string, explicit K, at or above absolute zero",
+   "example": "300K",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "matrix",
+   "label": "Matrix",
+   "noun": "matrix",
+   "description": "Dense rectangular finite-number matrix, 1–64 rows and columns",
+   "example": "[[1,0],[0,1]]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  },
+  {
+   "name": "transformmatrix",
+   "label": "Transform Matrix",
+   "noun": "transform matrix",
+   "description": "Row-major 3×3 or 4×4 homogeneous transform matrix",
+   "example": "[[1,0,0],[0,1,0],[0,0,1]]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  },
+  {
+   "name": "cron",
+   "label": "Cron Schedule",
+   "noun": "cron schedule",
+   "description": "Five-field cron expression, numeric or abbreviated month/weekday names",
+   "example": "0 9 * * 1-5",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "fiscalperiod",
+   "label": "Fiscal Period",
+   "noun": "fiscal period",
+   "description": "Fiscal year/quarter label or calendar month; no calendar inference",
+   "example": "FY2026-Q2",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "color",
+   "label": "Color",
+   "noun": "color",
+   "description": "Hex, RGB or HSL color with optional opacity; canonical hex",
+   "example": "#4caf50",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "color"
+   }
+  },
+  {
+   "name": "emoji",
+   "label": "Emoji",
+   "noun": "emoji",
+   "description": "One Unicode 17 emoji sequence, fully qualified",
+   "example": "😄",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "emoji"
+   }
+  },
+  {
+   "name": "font",
+   "label": "Font",
+   "noun": "font family list",
+   "description": "Safe CSS font-family list; lowercase canonical family names",
+   "example": "Roboto, sans-serif",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "font"
+   }
+  },
+  {
+   "name": "base64",
+   "label": "Base64",
+   "noun": "base64",
+   "description": "Canonical padded RFC 4648 base64 text",
+   "example": "SGVsbG8=",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "base64url",
+   "label": "Base64URL",
+   "noun": "base64url",
+   "description": "Canonical unpadded RFC 4648 base64url text",
+   "example": "SGVsbG8",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "uuid",
+   "label": "UUID",
+   "noun": "UUID",
+   "description": "UUID of any version, lowercase and hyphenated",
+   "example": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "ulid",
+   "label": "ULID",
+   "noun": "ULID",
+   "description": "ULID, 26 uppercase Crockford base32 characters",
+   "example": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "regex",
+   "label": "Regular Expression",
+   "noun": "regular expression",
+   "description": "JavaScript regular expression as a /source/flags literal",
+   "example": "/^[a-z]+$/i",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "function",
+   "label": "Function (Source Code)",
+   "noun": "function",
+   "description": "Source code of one function in the package's own language (JavaScript in npm, Python in PyPI), parsed but never run",
+   "example": "(a, b) => a + b",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "javascript",
+   "label": "JavaScript",
+   "noun": "JavaScript source",
+   "description": "JavaScript source, a script or module, syntax-checked by parsing; never run",
+   "example": "const greeting = 'hello';",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "python",
+   "label": "Python",
+   "noun": "Python source",
+   "description": "Python 3 source, syntax-checked by parsing; never run",
+   "example": "print('hello')",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "html",
+   "label": "HTML",
+   "noun": "HTML fragment",
+   "description": "HTML fragment with no syntax errors, stored as written (not sanitized)",
+   "example": "<p>Hello, <b>world</b></p>",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "css",
+   "label": "CSS",
+   "noun": "CSS stylesheet",
+   "description": "CSS stylesheet or declaration list with no syntax errors",
+   "example": "p { color: #333; }",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "svg",
+   "label": "SVG",
+   "noun": "SVG document",
+   "description": "SVG document: well-formed XML with an <svg> root, stored as written (not sanitized)",
+   "example": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 10 10\"><circle cx=\"5\" cy=\"5\" r=\"4\"/></svg>",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "textarea"
+   }
+  },
+  {
+   "name": "tag",
+   "label": "Tag",
+   "noun": "tag",
+   "description": "Label: lowercase, whitespace collapsed, at most 64 characters",
+   "example": "featured",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "tagset",
+   "label": "Tags",
+   "noun": "tag list",
+   "description": "Set of tags, deduplicated and sorted; min/max count tags",
+   "example": "[\"digital signage\", \"interactive video\"]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "length",
+   "ui": {
+    "control": "tags"
+   }
+  },
+  {
+   "name": "scopes",
+   "label": "Scopes (Access Grants)",
+   "noun": "scope list",
+   "description": "Access scope grants \"scope:read|write\", one per scope at its highest level, sorted",
+   "example": "[\"billing:read\", \"default:write\"]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "length",
+   "ui": {
+    "control": "tags"
+   }
+  },
+  {
+   "name": "currency",
+   "label": "Currency (ISO 4217)",
+   "noun": "currency code",
+   "description": "Current ISO 4217 currency code, uppercase",
+   "example": "USD",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "money",
+   "label": "Money",
+   "noun": "amount of money",
+   "description": "Exact decimal amount with its ISO 4217 currency, { amount, currency }",
+   "example": "12.50 USD",
+   "aliases": [],
+   "storage": "object",
+   "wire": "object",
+   "collation": "none",
+   "constraints": "value",
+   "ui": {
+    "control": "money"
+   }
+  },
+  {
+   "name": "geo",
+   "label": "Geo [lng, lat]",
+   "noun": "[longitude, latitude] point",
+   "description": "Coordinate pair [longitude, latitude]",
+   "example": "[-73.9857, 40.7484]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "coordinates"
+   }
+  },
+  {
+   "name": "geohash",
+   "label": "Geohash",
+   "noun": "geohash",
+   "description": "Geohash, 1–12 lowercase base32 characters",
+   "example": "9q8yyk",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "pluscode",
+   "label": "Plus Code",
+   "noun": "plus code",
+   "description": "Full Open Location Code (plus code), uppercase",
+   "example": "849VCWC8+R9",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
+   "name": "geojson",
+   "label": "GeoJSON",
+   "noun": "GeoJSON",
+   "description": "RFC 7946 GeoJSON geometry, Feature or FeatureCollection",
+   "example": "{\"type\":\"Point\",\"coordinates\":[-73.9857,40.7484]}",
+   "aliases": [],
+   "storage": "object",
+   "wire": "object",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  },
+  {
+   "name": "xy",
+   "label": "Point [x, y]",
+   "noun": "[x, y] point",
+   "description": "Two finite numbers [x, y]",
+   "example": "[100, 200]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "coordinates"
+   }
+  },
+  {
+   "name": "xyz",
+   "label": "Point [x, y, z]",
+   "noun": "[x, y, z] point",
+   "description": "Three finite numbers [x, y, z]",
+   "example": "[10, 20, 30]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "coordinates"
+   }
+  },
+  {
+   "name": "array",
+   "label": "List",
+   "noun": "list",
+   "description": "List of values, optionally of one item type (of); min/max count items",
+   "example": "[\"a\", \"b\"]",
+   "aliases": [],
+   "storage": "array",
+   "wire": "array",
+   "collation": "multikey",
+   "constraints": "length",
+   "ui": {
+    "control": "array"
+   }
+  },
+  {
+   "name": "object",
+   "label": "Object",
+   "noun": "object",
+   "description": "Nested document, optionally with its own field schema",
+   "example": "{ \"city\": \"Paris\" }",
+   "aliases": [],
+   "storage": "object",
+   "wire": "object",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  },
+  {
+   "name": "json",
+   "label": "JSON (Freeform)",
+   "noun": "JSON value",
+   "description": "Arbitrary JSON, stored verbatim and never validated field by field",
+   "example": "{ \"any\": [\"JSON\", 1] }",
+   "aliases": [],
+   "storage": "object",
+   "wire": "object",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  },
+  {
+   "name": "any",
+   "label": "Any",
+   "noun": "any",
+   "description": "Any value, unchecked",
+   "example": "\"text\", 42 or { \"a\": 1 }",
+   "aliases": [],
+   "storage": "any",
+   "wire": "any",
+   "collation": "none",
+   "constraints": "none",
+   "ui": {
+    "control": "json"
+   }
+  }
+ ],
+ "jsonSchemas": {
+  "json": {
+   "type": null
+  },
+  "any": {
+   "type": null
+  },
+  "email": {
+   "format": "email",
+   "maxLength": 128
+  },
+  "url": {
+   "format": "uri"
+  },
+  "uri": {
+   "format": "uri"
+  },
+  "domain": {
+   "format": "hostname"
+  },
+  "hostname": {
+   "format": "hostname"
+  },
+  "uuid": {
+   "format": "uuid"
+  },
+  "day": {
+   "format": "date"
+  },
+  "expiry": {
+   "format": "date-time"
+  },
+  "interval": {
+   "format": "duration"
+  },
+  "regex": {
+   "format": "regex"
+  },
+  "base64": {
+   "contentEncoding": "base64"
+  },
+  "base64url": {
+   "contentEncoding": "base64url"
+  },
+  "year": {
+   "pattern": "^[0-9]{4}$"
+  },
+  "yearmonth": {
+   "pattern": "^[0-9]{4}-[0-9]{2}$"
+  },
+  "integer": {
+   "minimum": -9007199254740991,
+   "maximum": 9007199254740991
+  },
+  "int32": {
+   "minimum": -2147483648,
+   "maximum": 2147483647
+  },
+  "smallint": {
+   "minimum": -32768,
+   "maximum": 32767
+  },
+  "uint8": {
+   "minimum": 0,
+   "maximum": 255
+  },
+  "uint16": {
+   "minimum": 0,
+   "maximum": 65535
+  },
+  "uint32": {
+   "minimum": 0,
+   "maximum": 4294967295
+  },
+  "ttl": {
+   "minimum": 0,
+   "maximum": 9007199254740991
+  },
+  "bytes": {
+   "minimum": 0,
+   "maximum": 9007199254740991
+  },
+  "percentage": {
+   "minimum": 0,
+   "maximum": 100
+  },
+  "fraction": {
+   "minimum": 0,
+   "maximum": 1
+  },
+  "probability": {
+   "minimum": 0,
+   "maximum": 1
+  },
+  "multiplier": {
+   "minimum": 0
+  },
+  "angle": {
+   "minimum": 0,
+   "exclusiveMaximum": 360
+  },
+  "tag": {
+   "maxLength": 64
+  },
+  "tagset": {
+   "items": {
+    "type": "string",
+    "maxLength": 64
+   },
+   "uniqueItems": true
+  },
+  "scopes": {
+   "items": {
+    "type": "string",
+    "pattern": "^[^:]+:(read|write)$"
+   },
+   "uniqueItems": true
+  },
+  "datetimewindow": {
+   "items": {
+    "type": "string",
+    "format": "date-time"
+   },
+   "minItems": 2,
+   "maxItems": 2
+  },
+  "geo": {
+   "items": {
+    "type": "number"
+   },
+   "minItems": 2,
+   "maxItems": 2
+  },
+  "xy": {
+   "items": {
+    "type": "number"
+   },
+   "minItems": 2,
+   "maxItems": 2
+  },
+  "xyz": {
+   "items": {
+    "type": "number"
+   },
+   "minItems": 3,
+   "maxItems": 3
+  },
+  "matrix": {
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "number"
+    },
+    "minItems": 1,
+    "maxItems": 64
+   },
+   "minItems": 1,
+   "maxItems": 64
+  },
+  "transformmatrix": {
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "number"
+    },
+    "minItems": 3,
+    "maxItems": 4
+   },
+   "minItems": 3,
+   "maxItems": 4
+  },
+  "money": {
+   "properties": {
+    "amount": {
+     "type": "string",
+     "pattern": "^-?[0-9]+(\\.[0-9]+)?$"
+    },
+    "currency": {
+     "type": "string",
+     "pattern": "^[A-Z]{3}$"
+    }
+   },
+   "required": [
+    "amount",
+    "currency"
+   ],
+   "additionalProperties": false
+  },
+  "geojson": {
+   "properties": {
+    "type": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "type"
+   ]
+  }
+ },
+ "schemas": {
+  "string": {
+   "title": "Text",
+   "description": "Text",
+   "type": "string",
+   "x-typeset": "string"
+  },
+  "number": {
+   "title": "Number",
+   "description": "Double-precision number",
+   "type": "number",
+   "x-typeset": "number"
+  },
+  "boolean": {
+   "title": "Boolean",
+   "description": "true or false",
+   "type": "boolean",
+   "x-typeset": "boolean"
+  },
+  "date": {
+   "title": "Date and Time",
+   "description": "Moment in time; ISO timestamps and epoch milliseconds accepted",
+   "type": "string",
+   "format": "date-time",
+   "x-typeset": "date"
+  },
+  "bigint": {
+   "title": "Big Integer",
+   "description": "Arbitrary-precision signed whole number; digits on the JSON wire",
+   "type": "string",
+   "pattern": "^-?[0-9]+$",
+   "x-typeset": "bigint"
+  },
+  "email": {
+   "title": "Email",
+   "description": "Email address, normalized",
+   "type": "string",
+   "format": "email",
+   "maxLength": 128,
+   "x-typeset": "email"
+  },
+  "phone": {
+   "title": "Phone",
+   "description": "Phone number, normalized to E.164",
+   "type": "string",
+   "x-typeset": "phone"
+  },
+  "url": {
+   "title": "URL",
+   "description": "Absolute HTTP(S) URL",
+   "type": "string",
+   "format": "uri",
+   "x-typeset": "url"
+  },
+  "uri": {
+   "title": "URI",
+   "description": "Absolute RFC 3986 URI of any scheme (mailto:, tel:, urn:, s3://…)",
+   "type": "string",
+   "format": "uri",
+   "x-typeset": "uri"
+  },
+  "domain": {
+   "title": "Domain",
+   "description": "DNS domain with at least two labels (not a public-suffix lookup)",
+   "type": "string",
+   "format": "hostname",
+   "x-typeset": "domain"
+  },
+  "hostname": {
+   "title": "Hostname",
+   "description": "DNS hostname, including single-label local names",
+   "type": "string",
+   "format": "hostname",
+   "x-typeset": "hostname"
+  },
+  "ip": {
+   "title": "IP and Port",
+   "description": "IPv4 or IPv6 address, optionally with a port (bracket IPv6 endpoints)",
+   "type": "string",
+   "x-typeset": "ip"
+  },
+  "ipaddress": {
+   "title": "IP Address",
+   "description": "IPv4 or IPv6 address, no port or zone",
+   "type": "string",
+   "x-typeset": "ipaddress"
+  },
+  "iprange": {
+   "title": "IP Range (CIDR)",
+   "description": "IPv4 or IPv6 CIDR block, network address with zero host bits",
+   "type": "string",
+   "x-typeset": "iprange"
+  },
+  "mimetype": {
+   "title": "Media Type",
+   "description": "Bare media type without parameters or wildcards",
+   "type": "string",
+   "x-typeset": "mimetype"
+  },
+  "contenttype": {
+   "title": "Content Type",
+   "description": "Media type with optional parameters",
+   "type": "string",
+   "x-typeset": "contenttype"
+  },
+  "place": {
+   "title": "Place (Google Place ID)",
+   "description": "Opaque Google Place ID (no existence lookup)",
+   "type": "string",
+   "x-typeset": "place"
+  },
+  "postalcode": {
+   "title": "Postal Code",
+   "description": "Postal code, uppercase without spaces or hyphens (structural validation)",
+   "type": "string",
+   "x-typeset": "postalcode"
+  },
+  "language": {
+   "title": "Language",
+   "description": "Registered language code, canonical lowercase",
+   "type": "string",
+   "x-typeset": "language"
+  },
+  "country": {
+   "title": "Country",
+   "description": "Registered CLDR country or territory code, uppercase",
+   "type": "string",
+   "x-typeset": "country"
+  },
+  "region": {
+   "title": "Region / State",
+   "description": "Registered subdivision code, uppercase and country-qualified",
+   "type": "string",
+   "x-typeset": "region"
+  },
+  "locale": {
+   "title": "Locale",
+   "description": "Canonical Unicode BCP 47 locale identifier",
+   "type": "string",
+   "x-typeset": "locale"
+  },
+  "continent": {
+   "title": "Continent",
+   "description": "Continent code: AF, AN, AS, EU, NA, OC, SA",
+   "type": "string",
+   "enum": [
+    "AF",
+    "AN",
+    "AS",
+    "EU",
+    "NA",
+    "OC",
+    "SA"
+   ],
+   "x-typeset": "continent"
+  },
+  "ratio": {
+   "title": "Ratio",
+   "description": "Exact nonnegative ratio, reduced to integer numerator:denominator",
+   "type": "string",
+   "x-typeset": "ratio"
+  },
+  "timezone": {
+   "title": "Time Zone",
+   "description": "IANA time zone, canonical name from the pinned zone table",
+   "type": "string",
+   "x-typeset": "timezone"
+  },
+  "weekday": {
+   "title": "Weekday",
+   "description": "English weekday name, lowercase",
+   "type": "string",
+   "enum": [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday"
+   ],
+   "x-typeset": "weekday"
+  },
+  "month": {
+   "title": "Month",
+   "description": "English month name, lowercase",
+   "type": "string",
+   "enum": [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december"
+   ],
+   "x-typeset": "month"
+  },
+  "roman": {
+   "title": "Roman Numeral",
+   "description": "Canonical uppercase Roman numeral, 1 through 3999",
+   "type": "string",
+   "x-typeset": "roman"
+  },
+  "barcode": {
+   "title": "Barcode",
+   "description": "Opaque printable ASCII barcode payload, case and spaces preserved",
+   "type": "string",
+   "x-typeset": "barcode"
+  },
+  "isbn": {
+   "title": "ISBN",
+   "description": "Checksum-validated ISBN-10 or ISBN-13, stored as ISBN-13",
+   "type": "string",
+   "x-typeset": "isbn"
+  },
+  "upc": {
+   "title": "UPC-A",
+   "description": "Checksum-validated 12-digit UPC-A, leading zeros preserved",
+   "type": "string",
+   "x-typeset": "upc"
+  },
+  "gtin": {
+   "title": "GTIN",
+   "description": "Checksum-validated GTIN-8/12/13/14, stored as 14 digits",
+   "type": "string",
+   "x-typeset": "gtin"
+  },
+  "asin": {
+   "title": "ASIN",
+   "description": "Amazon ASIN: a valid ISBN-10 or B and nine letters or digits",
+   "type": "string",
+   "x-typeset": "asin"
+  },
+  "imei": {
+   "title": "IMEI",
+   "description": "Checksum-validated 15-digit IMEI",
+   "type": "string",
+   "x-typeset": "imei"
+  },
+  "vatnumber": {
+   "title": "VAT Number",
+   "description": "VAT number with its country prefix (EU, XI, GB, CH, NO); structural check",
+   "type": "string",
+   "x-typeset": "vatnumber"
+  },
+  "integer": {
+   "title": "Integer",
+   "description": "Safe signed whole number",
+   "type": "integer",
+   "minimum": -9007199254740991,
+   "maximum": 9007199254740991,
+   "x-typeset": "integer"
+  },
+  "int32": {
+   "title": "Int32",
+   "description": "Signed 32-bit integer",
+   "type": "integer",
+   "minimum": -2147483648,
+   "maximum": 2147483647,
+   "x-typeset": "int32"
+  },
+  "smallint": {
+   "title": "Small Integer",
+   "description": "Signed 16-bit integer",
+   "type": "integer",
+   "minimum": -32768,
+   "maximum": 32767,
+   "x-typeset": "smallint"
+  },
+  "uint8": {
+   "title": "UInt8",
+   "description": "Unsigned 8-bit integer",
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 255,
+   "x-typeset": "uint8"
+  },
+  "uint16": {
+   "title": "UInt16",
+   "description": "Unsigned 16-bit integer",
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 65535,
+   "x-typeset": "uint16"
+  },
+  "uint32": {
+   "title": "UInt32",
+   "description": "Unsigned 32-bit integer",
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 4294967295,
+   "x-typeset": "uint32"
+  },
+  "decimal": {
+   "title": "Decimal",
+   "description": "Exact decimal number kept as text, no floating-point rounding",
+   "type": "string",
+   "x-typeset": "decimal"
+  },
+  "percentage": {
+   "title": "Percentage",
+   "description": "Percentage points, 0 through 100",
+   "type": "number",
+   "minimum": 0,
+   "maximum": 100,
+   "x-typeset": "percentage"
+  },
+  "fraction": {
+   "title": "Fraction",
+   "description": "Fraction of a whole, 0 through 1",
+   "type": "number",
+   "minimum": 0,
+   "maximum": 1,
+   "x-typeset": "fraction"
+  },
+  "angle": {
+   "title": "Angle",
+   "description": "Degrees normalized into [0, 360)",
+   "type": "number",
+   "minimum": 0,
+   "exclusiveMaximum": 360,
+   "x-typeset": "angle"
+  },
+  "probability": {
+   "title": "Probability",
+   "description": "Probability, 0 through 1",
+   "type": "number",
+   "minimum": 0,
+   "maximum": 1,
+   "x-typeset": "probability"
+  },
+  "multiplier": {
+   "title": "Multiplier",
+   "description": "Nonnegative finite multiplier",
+   "type": "number",
+   "minimum": 0,
+   "x-typeset": "multiplier"
+  },
+  "datetimewindow": {
+   "title": "Date-Time Window",
+   "description": "Ordered inclusive pair of UTC ISO timestamps",
+   "type": "array",
+   "items": {
+    "type": "string",
+    "format": "date-time"
+   },
+   "minItems": 2,
+   "maxItems": 2,
+   "x-typeset": "datetimewindow"
+  },
+  "expiry": {
+   "title": "Expiry",
+   "description": "UTC ISO timestamp; relative durations resolve at normalization time",
+   "type": "string",
+   "format": "date-time",
+   "x-typeset": "expiry"
+  },
+  "ttl": {
+   "title": "TTL",
+   "description": "Nonnegative safe whole seconds; no automatic deletion",
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 9007199254740991,
+   "x-typeset": "ttl"
+  },
+  "bytes": {
+   "title": "Bytes",
+   "description": "Data size in whole bytes; SI (kB) and IEC (KiB) units accepted",
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 9007199254740991,
+   "x-typeset": "bytes"
+  },
+  "interval": {
+   "title": "Interval",
+   "description": "Nonnegative ISO duration; calendar months preserved, numeric input is milliseconds",
+   "type": "string",
+   "format": "duration",
+   "x-typeset": "interval"
+  },
+  "day": {
+   "title": "Day",
+   "description": "Gregorian calendar day, no timezone",
+   "type": "string",
+   "format": "date",
+   "x-typeset": "day"
+  },
+  "time": {
+   "title": "Time",
+   "description": "Local wall-clock time, millisecond precision, no timezone",
+   "type": "string",
+   "x-typeset": "time"
+  },
+  "year": {
+   "title": "Year",
+   "description": "Gregorian year YYYY, 0001..9999",
+   "type": "string",
+   "pattern": "^[0-9]{4}$",
+   "x-typeset": "year"
+  },
+  "yearmonth": {
+   "title": "Year and Month",
+   "description": "Gregorian year and month YYYY-MM, no timezone",
+   "type": "string",
+   "pattern": "^[0-9]{4}-[0-9]{2}$",
+   "x-typeset": "yearmonth"
+  },
+  "isoweek": {
+   "title": "ISO Week",
+   "description": "ISO 8601 week YYYY-Www",
+   "type": "string",
+   "x-typeset": "isoweek"
+  },
+  "monthday": {
+   "title": "Month and Day",
+   "description": "Recurring month and day --MM-DD, no year",
+   "type": "string",
+   "x-typeset": "monthday"
+  },
+  "resolution": {
+   "title": "Resolution",
+   "description": "Positive pixel dimensions WIDTHxHEIGHT",
+   "type": "string",
+   "x-typeset": "resolution"
+  },
+  "numberrange": {
+   "title": "Number Range",
+   "description": "Ordered inclusive exact decimal endpoints, canonical LOW-HIGH",
+   "type": "string",
+   "x-typeset": "numberrange"
+  },
+  "vtt": {
+   "title": "WebVTT Timestamp",
+   "description": "WebVTT timestamp offset, millisecond precision",
+   "type": "string",
+   "x-typeset": "vtt"
+  },
+  "vttrange": {
+   "title": "WebVTT Cue Timing",
+   "description": "WebVTT cue timing with strictly increasing endpoints",
+   "type": "string",
+   "x-typeset": "vttrange"
+  },
+  "srt": {
+   "title": "SubRip Timestamp",
+   "description": "SubRip timestamp offset, millisecond precision",
+   "type": "string",
+   "x-typeset": "srt"
+  },
+  "srtrange": {
+   "title": "SubRip Cue Timing",
+   "description": "SubRip cue timing with strictly increasing endpoints",
+   "type": "string",
+   "x-typeset": "srtrange"
+  },
+  "timecode": {
+   "title": "Timecode (SMPTE)",
+   "description": "SMPTE timecode HH:MM:SS:FF; a ; before the frames marks 29.97 drop-frame",
+   "type": "string",
+   "x-typeset": "timecode"
+  },
+  "timeprecision": {
+   "title": "Time Precision",
+   "description": "Fixed time precision unit: ns, us, ms, s, m, h, d",
+   "type": "string",
+   "enum": [
+    "ns",
+    "us",
+    "ms",
+    "s",
+    "m",
+    "h",
+    "d"
+   ],
+   "x-typeset": "timeprecision"
+  },
+  "compassdirection": {
+   "title": "Compass Direction",
+   "description": "Sixteen-point compass direction, uppercase",
+   "type": "string",
+   "enum": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "x-typeset": "compassdirection"
+  },
+  "semver": {
+   "title": "Semantic Version",
+   "description": "Semantic Versioning 2.0.0 version, including prerelease/build identifiers",
+   "type": "string",
+   "x-typeset": "semver"
+  },
+  "semverrange": {
+   "title": "Semver Range",
+   "description": "npm-style semver range: comparators, ~, ^, hyphen ranges, wildcards, ||",
+   "type": "string",
+   "x-typeset": "semverrange"
+  },
+  "etag": {
+   "title": "ETag",
+   "description": "HTTP entity tag: case-sensitive opaque payload, strong or weak",
+   "type": "string",
+   "x-typeset": "etag"
+  },
+  "celsius": {
+   "title": "Celsius",
+   "description": "Celsius temperature string, explicit °C, at or above absolute zero",
+   "type": "string",
+   "x-typeset": "celsius"
+  },
+  "fahrenheit": {
+   "title": "Fahrenheit",
+   "description": "Fahrenheit temperature string, explicit °F, at or above absolute zero",
+   "type": "string",
+   "x-typeset": "fahrenheit"
+  },
+  "kelvin": {
+   "title": "Kelvin",
+   "description": "Kelvin temperature string, explicit K, at or above absolute zero",
+   "type": "string",
+   "x-typeset": "kelvin"
+  },
+  "matrix": {
+   "title": "Matrix",
+   "description": "Dense rectangular finite-number matrix, 1–64 rows and columns",
+   "type": "array",
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "number"
+    },
+    "minItems": 1,
+    "maxItems": 64
+   },
+   "minItems": 1,
+   "maxItems": 64,
+   "x-typeset": "matrix"
+  },
+  "transformmatrix": {
+   "title": "Transform Matrix",
+   "description": "Row-major 3×3 or 4×4 homogeneous transform matrix",
+   "type": "array",
+   "items": {
+    "type": "array",
+    "items": {
+     "type": "number"
+    },
+    "minItems": 3,
+    "maxItems": 4
+   },
+   "minItems": 3,
+   "maxItems": 4,
+   "x-typeset": "transformmatrix"
+  },
+  "cron": {
+   "title": "Cron Schedule",
+   "description": "Five-field cron expression, numeric or abbreviated month/weekday names",
+   "type": "string",
+   "x-typeset": "cron"
+  },
+  "fiscalperiod": {
+   "title": "Fiscal Period",
+   "description": "Fiscal year/quarter label or calendar month; no calendar inference",
+   "type": "string",
+   "x-typeset": "fiscalperiod"
+  },
+  "color": {
+   "title": "Color",
+   "description": "Hex, RGB or HSL color with optional opacity; canonical hex",
+   "type": "string",
+   "x-typeset": "color"
+  },
+  "emoji": {
+   "title": "Emoji",
+   "description": "One Unicode 17 emoji sequence, fully qualified",
+   "type": "string",
+   "x-typeset": "emoji"
+  },
+  "font": {
+   "title": "Font",
+   "description": "Safe CSS font-family list; lowercase canonical family names",
+   "type": "string",
+   "x-typeset": "font"
+  },
+  "base64": {
+   "title": "Base64",
+   "description": "Canonical padded RFC 4648 base64 text",
+   "type": "string",
+   "contentEncoding": "base64",
+   "x-typeset": "base64"
+  },
+  "base64url": {
+   "title": "Base64URL",
+   "description": "Canonical unpadded RFC 4648 base64url text",
+   "type": "string",
+   "contentEncoding": "base64url",
+   "x-typeset": "base64url"
+  },
+  "uuid": {
+   "title": "UUID",
+   "description": "UUID of any version, lowercase and hyphenated",
+   "type": "string",
+   "format": "uuid",
+   "x-typeset": "uuid"
+  },
+  "ulid": {
+   "title": "ULID",
+   "description": "ULID, 26 uppercase Crockford base32 characters",
+   "type": "string",
+   "x-typeset": "ulid"
+  },
+  "regex": {
+   "title": "Regular Expression",
+   "description": "JavaScript regular expression as a /source/flags literal",
+   "type": "string",
+   "format": "regex",
+   "x-typeset": "regex"
+  },
+  "function": {
+   "title": "Function (Source Code)",
+   "description": "Source code of one function in the package's own language (JavaScript in npm, Python in PyPI), parsed but never run",
+   "type": "string",
+   "x-typeset": "function"
+  },
+  "javascript": {
+   "title": "JavaScript",
+   "description": "JavaScript source, a script or module, syntax-checked by parsing; never run",
+   "type": "string",
+   "x-typeset": "javascript"
+  },
+  "python": {
+   "title": "Python",
+   "description": "Python 3 source, syntax-checked by parsing; never run",
+   "type": "string",
+   "x-typeset": "python"
+  },
+  "html": {
+   "title": "HTML",
+   "description": "HTML fragment with no syntax errors, stored as written (not sanitized)",
+   "type": "string",
+   "x-typeset": "html"
+  },
+  "css": {
+   "title": "CSS",
+   "description": "CSS stylesheet or declaration list with no syntax errors",
+   "type": "string",
+   "x-typeset": "css"
+  },
+  "svg": {
+   "title": "SVG",
+   "description": "SVG document: well-formed XML with an <svg> root, stored as written (not sanitized)",
+   "type": "string",
+   "x-typeset": "svg"
+  },
+  "tag": {
+   "title": "Tag",
+   "description": "Label: lowercase, whitespace collapsed, at most 64 characters",
+   "type": "string",
+   "maxLength": 64,
+   "x-typeset": "tag"
+  },
+  "tagset": {
+   "title": "Tags",
+   "description": "Set of tags, deduplicated and sorted; min/max count tags",
+   "type": "array",
+   "items": {
+    "type": "string",
+    "maxLength": 64
+   },
+   "uniqueItems": true,
+   "x-typeset": "tagset"
+  },
+  "scopes": {
+   "title": "Scopes (Access Grants)",
+   "description": "Access scope grants \"scope:read|write\", one per scope at its highest level, sorted",
+   "type": "array",
+   "items": {
+    "type": "string",
+    "pattern": "^[^:]+:(read|write)$"
+   },
+   "uniqueItems": true,
+   "x-typeset": "scopes"
+  },
+  "currency": {
+   "title": "Currency (ISO 4217)",
+   "description": "Current ISO 4217 currency code, uppercase",
+   "type": "string",
+   "x-typeset": "currency"
+  },
+  "money": {
+   "title": "Money",
+   "description": "Exact decimal amount with its ISO 4217 currency, { amount, currency }",
+   "type": "object",
+   "properties": {
+    "amount": {
+     "type": "string",
+     "pattern": "^-?[0-9]+(\\.[0-9]+)?$"
+    },
+    "currency": {
+     "type": "string",
+     "pattern": "^[A-Z]{3}$"
+    }
+   },
+   "required": [
+    "amount",
+    "currency"
+   ],
+   "additionalProperties": false,
+   "x-typeset": "money"
+  },
+  "geo": {
+   "title": "Geo [lng, lat]",
+   "description": "Coordinate pair [longitude, latitude]",
+   "type": "array",
+   "items": {
+    "type": "number"
+   },
+   "minItems": 2,
+   "maxItems": 2,
+   "x-typeset": "geo"
+  },
+  "geohash": {
+   "title": "Geohash",
+   "description": "Geohash, 1–12 lowercase base32 characters",
+   "type": "string",
+   "x-typeset": "geohash"
+  },
+  "pluscode": {
+   "title": "Plus Code",
+   "description": "Full Open Location Code (plus code), uppercase",
+   "type": "string",
+   "x-typeset": "pluscode"
+  },
+  "geojson": {
+   "title": "GeoJSON",
+   "description": "RFC 7946 GeoJSON geometry, Feature or FeatureCollection",
+   "type": "object",
+   "properties": {
+    "type": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "type"
+   ],
+   "x-typeset": "geojson"
+  },
+  "xy": {
+   "title": "Point [x, y]",
+   "description": "Two finite numbers [x, y]",
+   "type": "array",
+   "items": {
+    "type": "number"
+   },
+   "minItems": 2,
+   "maxItems": 2,
+   "x-typeset": "xy"
+  },
+  "xyz": {
+   "title": "Point [x, y, z]",
+   "description": "Three finite numbers [x, y, z]",
+   "type": "array",
+   "items": {
+    "type": "number"
+   },
+   "minItems": 3,
+   "maxItems": 3,
+   "x-typeset": "xyz"
+  },
+  "array": {
+   "title": "List",
+   "description": "List of values, optionally of one item type (of); min/max count items",
+   "type": "array",
+   "x-typeset": "array"
+  },
+  "object": {
+   "title": "Object",
+   "description": "Nested document, optionally with its own field schema",
+   "type": "object",
+   "x-typeset": "object"
+  },
+  "json": {
+   "title": "JSON (Freeform)",
+   "description": "Arbitrary JSON, stored verbatim and never validated field by field",
+   "x-typeset": "json"
+  },
+  "any": {
+   "title": "Any",
+   "description": "Any value, unchecked",
+   "x-typeset": "any"
+  }
+ }
+}

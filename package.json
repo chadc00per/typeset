@@ -1,0 +1,111 @@
+{
+  "name": "@chadc00per/typeset",
+  "version": "1.0.0",
+  "description": "Semantic field types: canonical normalize/validate, a constructor per type, and picker metadata. ES modules, CommonJS, React and plain browser scripts.",
+  "keywords": [
+    "types",
+    "validation",
+    "normalization",
+    "schema",
+    "email",
+    "phone",
+    "currency",
+    "locale"
+  ],
+  "author": "Chad Cooper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chadc00per/typeset.git"
+  },
+  "homepage": "https://github.com/chadc00per/typeset#readme",
+  "bugs": {
+    "url": "https://github.com/chadc00per/typeset/issues"
+  },
+  "license": "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND Unicode-3.0",
+  "type": "module",
+  "main": "./js/dist/index.cjs",
+  "module": "./js/src/index.js",
+  "types": "./js/src/index.d.ts",
+  "unpkg": "./js/dist/typeset.global.js",
+  "jsdelivr": "./js/dist/typeset.global.js",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./js/dist/index.d.cts",
+        "default": "./js/src/index.d.ts"
+      },
+      "module-sync": "./js/src/index.js",
+      "require": "./js/dist/index.cjs",
+      "default": "./js/src/index.js"
+    },
+    "./browser": {
+      "types": "./js/src/index.d.ts",
+      "default": "./js/dist/typeset.browser.js"
+    },
+    "./global": "./js/dist/typeset.global.js",
+    "./browser-lite": {
+      "types": "./js/src/index.d.ts",
+      "default": "./js/dist/typeset.browser-lite.js"
+    },
+    "./global-lite": "./js/dist/typeset.global-lite.js",
+    "./package.json": "./package.json"
+  },
+  "imports": {
+    "#vendor": {
+      "node": "./js/src/lib/vendor.node.js",
+      "default": "./js/src/lib/vendor.js"
+    }
+  },
+  "files": [
+    "js/src",
+    "data",
+    "js/dist",
+    "LICENSE",
+    "NOTICE",
+    "THIRD-PARTY-NOTICES.md",
+    "README.md",
+    "TYPES.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "node js/scripts/build.js",
+    "pretest": "npm run build",
+    "test": "node --test 'js/tests/**/*.test.js'",
+    "test:python": ".venv/bin/python -m pytest",
+    "typecheck": "tsc -p js/tests/tsconfig.json",
+    "lint": "eslint .",
+    "lint:python": ".venv/bin/ruff check python && .venv/bin/mypy --strict python/tests/typing_check.py",
+    "conformance": "node js/scripts/generate-conformance.js",
+    "parsers": "node js/scripts/generate-python-parsers.js",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@lezer/python": "1.1.19",
+    "acorn": "8.19.0",
+    "css-tree": "3.2.1",
+    "google-libphonenumber": "3.2.48",
+    "parse5": "8.1.1",
+    "saxes": "6.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@hapi/tlds": "^1.1.7",
+    "@standard-schema/spec": "^1.1.0",
+    "@trpc/server": "^11.29.7",
+    "@types/react": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "joi": "^18.0.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

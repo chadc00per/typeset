@@ -1,0 +1,82 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chadc00per-typeset"
+version = "1.0.0"
+description = "Semantic field types: canonical normalize/validate, a class per type, and picker metadata. The Python twin of the @chadc00per/typeset npm package."
+readme = "python/README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND Unicode-3.0"
+license-files = ["LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md", "data/UNICODE-LICENSE.txt", "python/chadc00per_typeset/_parsers.LICENSES.txt"]
+authors = [{ name = "Chad Cooper" }]
+keywords = ["types", "validation", "normalization", "schema", "email", "phone", "currency", "locale"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries",
+  "Typing :: Typed",
+]
+dependencies = [
+  "ada-url>=1.15,<5",
+  "regress>=2024.11.1,<2027", # an ECMAScript regex engine: a new release can change which patterns `regex` accepts
+]
+
+# The heavy dependencies are optional, like the npm package's lite build: without one,
+# the types that need it raise ModuleNotFoundError on every call, naming the extra.
+[project.optional-dependencies]
+# phone. The same libphonenumber metadata release as package.json's google-libphonenumber 3.2.48
+# (js/tests/types/phone.test.js holds numbers that changed between releases).
+phone = ["phonenumbers>=9.0.40,<=9.0.42"]
+# javascript, python, html, css and svg: V8, to run the same parsers as the JavaScript package
+# (python/chadc00per_typeset/_parsers.js); pinned so the engine never changes an answer.
+code = ["mini-racer==0.14.1"]
+all = ["chadc00per-typeset[phone,code]"]
+
+[project.urls]
+Homepage = "https://github.com/chadc00per/typeset#readme"
+Repository = "https://github.com/chadc00per/typeset"
+Issues = "https://github.com/chadc00per/typeset/issues"
+Changelog = "https://github.com/chadc00per/typeset/blob/main/CHANGELOG.md"
+
+# Development only: not published in the package metadata (PEP 735; pip install --group test).
+[dependency-groups]
+test = ["pytest>=8", "pydantic>=2.6"]
+lint = ["ruff>=0.8", "mypy>=1.10"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["python/chadc00per_typeset"]
+
+# The shared data ships inside the wheel; a checkout reads it in place.
+[tool.hatch.build.targets.wheel.force-include]
+"data" = "chadc00per_typeset/data"
+
+[tool.hatch.build.targets.sdist]
+# README.md and TYPES.md ship because python/tests/test_readme.py checks them.
+include = ["python/", "data/", "conformance/", "LICENSE", "NOTICE", "THIRD-PARTY-NOTICES.md", "README.md", "TYPES.md", "CHANGELOG.md", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["python/tests"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py310"
+src = ["python"]
+
+[tool.ruff.lint]
+# Pyflakes, syntax errors, bugbear, pyupgrade, simplifications, performance and ruff's own rules.
+select = ["F", "E9", "B", "UP", "SIM", "PERF", "RUF"]
+ignore = [
+  # The grammars match look-alike characters on purpose (×, °, the Kelvin sign, Unicode spaces).
+  "RUF001", "RUF002", "RUF003",
+  # A port keeps the JavaScript's try/catch shape, so the two read side by side.
+  "SIM105",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# __all__ lists the classes in the catalog's picker order, like js/src/index.js.
+"python/chadc00per_typeset/__init__.py" = ["RUF022"]
