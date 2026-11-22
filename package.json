@@ -93,7 +93,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@hapi/tlds": "^1.1.7",
+    "@hapi/tlds": "^2.0.3",
     "@standard-schema/spec": "^1.1.0",
     "@trpc/server": "^11.29.7",
     "@types/react": "^19.3.0",
