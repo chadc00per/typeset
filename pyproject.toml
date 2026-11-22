@@ -31,7 +31,7 @@ dependencies = [
 [project.optional-dependencies]
 # phone. The same libphonenumber metadata release as package.json's google-libphonenumber 3.2.48
 # (js/tests/types/phone.test.js holds numbers that changed between releases).
-phone = ["phonenumbers>=9.0.40,<=9.0.42"]
+phone = ["phonenumbers>=9.0.40,<=9.0.43"]
 # javascript, python, html, css and svg: V8, to run the same parsers as the JavaScript package
 # (python/chadc00per_typeset/_parsers.js); pinned so the engine never changes an answer.
 code = ["mini-racer==0.14.1"]
