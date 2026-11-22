@@ -1,7 +1,16 @@
 # Publishes both packages when a version tag (v1.2.3) is pushed, after the full CI passes.
 # No tokens are stored: npm and PyPI trust this workflow through OIDC, and npm records provenance.
-# One-time setup (see CONTRIBUTING.md): add this workflow as a trusted publisher on npmjs.com
+# PyPI publishes directly; npm stages the version, which a maintainer approves with 2FA on npmjs.com.
+# One-time setup (see RELEASING.md): add this workflow as a trusted publisher on npmjs.com
 # and pypi.org, and create the "npm" and "pypi" environments in the repository settings.
+#
+# Forks: every job is skipped outside chadc00per/typeset, so a fork that pushes a v* tag
+# runs nothing here (and the registries trust only this repository anyway). To publish a
+# fork under your own names, change the repository check below, the package names, and
+# set up your own trusted publishers (RELEASING.md).
+#
+# The packages are built in jobs without an OIDC token, so no build or install script can
+# mint one; the publish jobs only upload what the build produced.
 name: Release
 
 on:
@@ -11,10 +20,17 @@ on:
 permissions:
   contents: read
 
+# One release at a time; a second tag waits rather than racing the first.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
   versions:
     name: Tag matches both versions
+    if: github.repository == 'chadc00per/typeset'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -32,14 +48,13 @@ jobs:
     needs: versions
     uses: ./.github/workflows/ci.yml
 
-  npm:
-    name: Publish to npm
+  build:
+    name: Build packages
     needs: ci
     runs-on: ubuntu-latest
-    environment: npm
-    permissions:
-      contents: read
-      id-token: write
+    timeout-minutes: 15
+    outputs:
+      npm-spec: ${{ steps.npm.outputs.spec }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -47,27 +62,67 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24"
-          registry-url: https://registry.npmjs.org
-      - run: npm install -g npm@^11.5.1 # trusted publishing needs 11.5.1+
-      - run: npm ci
-      - run: npm publish --provenance --access public
-
-  pypi:
-    name: Publish to PyPI
-    needs: ci
-    runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.13"
-      - run: python -m pip install build && python -m build
+      - run: npm ci
+      - id: npm
+        run: |
+          mkdir -p dist/npm
+          npm pack --pack-destination dist/npm # prepack builds js/dist/
+          echo "spec=$(node -p "const p = require('./package.json'); p.name + '@' + p.version")" >> "$GITHUB_OUTPUT"
+      - run: python -m pip install build && python -m build --outdir dist/python
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: packages
+          path: dist/
+          if-no-files-found: error
+
+  npm:
+    name: Stage on npm
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: npm
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: packages
+          path: dist/
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@^11.20.0 # staged publishing needs 11.20+
+      # Staged: the version waits on npmjs.com until a maintainer approves it with 2FA
+      # (package → Staged versions, or `npm stage approve`). The trusted publisher may only stage.
+      # Skip a version already on npm (1.0.0 was published by hand to create the package,
+      # which trusted publishing needs), so a re-run after a partial release still succeeds.
+      - env:
+          SPEC: ${{ needs.build.outputs.npm-spec }}
+        run: |
+          if npm view "$SPEC" version >/dev/null 2>&1; then
+            echo "$SPEC is already published; skipping"
+          else
+            npm stage publish dist/npm/*.tgz --provenance --access public
+          fi
+
+  pypi:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: packages
+          path: dist/
       - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3
         with:
-          packages-dir: dist/
+          packages-dir: dist/python/
+          skip-existing: true # 1.0.0 was uploaded by hand; a re-run after a partial release still succeeds

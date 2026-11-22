@@ -92,3 +92,10 @@ def test_function_needs_no_extra():
                           "import chadc00per_typeset as t; print(t.Fn.is_('lambda: 1'))"],
                          capture_output=True, text=True, cwd=ROOT, check=True).stdout
     assert out.strip() == 'True'
+
+
+def test_a_program_that_checks_code_exits():
+    # mini-racer 0.14.1 left open keeps Python 3.13 (Linux, macOS) from exiting; _lib/code.py closes it at exit.
+    pytest.importorskip('py_mini_racer')
+    code = 'import chadc00per_typeset as t; assert t.Css.is_("p {}")'
+    subprocess.run([sys.executable, '-c', code], cwd=ROOT / 'python', check=True, timeout=60)

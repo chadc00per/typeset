@@ -15,7 +15,8 @@ import re
 import pytest
 
 import chadc00per_typeset as typeset
-from vectors import ROOT
+from chadc00per_typeset._registry import _EXTRAS
+from vectors import ROOT, installed
 
 ARROW = re.compile(r'^(\s*)(.+?)\s*# → (.+)$')
 
@@ -70,6 +71,9 @@ def examples():
 def test_readme_python_examples(code, line):
     if 'pydantic' in code and importlib.util.find_spec('pydantic') is None:
         pytest.skip('pydantic is not installed')
+    missing = [name for name in _EXTRAS if not installed(name) and re.search(rf'\b{typeset.get(name).__name__}\b', code)]
+    if missing:
+        pytest.skip(f'{", ".join(missing)} need an optional dependency')
     # dont_inherit: the example's annotations stay real (this module's `annotations` future would make them strings).
     exec(compile(runnable(code, line), f'README:{line}', 'exec', dont_inherit=True),
          {'__name__': 'readme', '__check': _check, '__raises': _raises})

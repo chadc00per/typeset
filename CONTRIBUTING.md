@@ -270,21 +270,8 @@ the runtime's ICU: pin such answers in `data/` with a generator script.
 3. Every command at the top of this file passes.
 4. New behaviour comes with a test, and a line in the docs if users will notice it.
 5. Sign off every commit (see below).
-
-## Releasing
-
-Releases are published by `.github/workflows/release.yml`, never from a laptop, so there are no
-publishing tokens to leak. npm records provenance, and PyPI uses trusted publishing.
-
-1. Bump the version in `package.json` and `pyproject.toml` together, and add an entry to
-   `CHANGELOG.md`.
-2. Tag the commit `v<version>` and push the tag. The workflow checks that the tag matches both
-   versions, runs the full CI, then publishes both packages.
-
-One-time setup: add the workflow as a trusted publisher on npmjs.com (package settings) and on
-pypi.org (publishing settings), with `release.yml` as the workflow name and the environment
-names `npm` and `pypi`. Then create those two environments in the repository settings. Requiring
-a reviewer on them makes every publish wait for a human.
+6. Leave the version numbers and `CHANGELOG.md` versions alone, and don't push tags: a
+   maintainer does those when releasing ([RELEASING.md](RELEASING.md)).
 
 ## Sign-off (DCO)
 

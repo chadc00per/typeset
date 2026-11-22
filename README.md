@@ -492,7 +492,7 @@ Report vulnerabilities privately; see [SECURITY.md](SECURITY.md).
 ## Contributing
 
 [CONTRIBUTING.md](CONTRIBUTING.md) covers the layout, the tests, how to add a type and how
-releases work.
+to send a pull request.
 
 ## License
 

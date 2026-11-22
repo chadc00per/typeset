@@ -7,6 +7,7 @@ from __future__ import annotations
 import pytest
 
 import chadc00per_typeset as typeset
+from vectors import installed
 
 HUGE = 10**400
 
@@ -17,6 +18,8 @@ HUGE = 10**400
     ('geojson', {'type': 'Point', 'coordinates': [HUGE, 0]}),
 ])
 def test_huge_ints_are_refused_not_raised(name, value):
+    if not installed(name):
+        pytest.skip(f'{name} needs an optional dependency')
     assert typeset.get(name).check(value)['ok'] is False
 
 
@@ -29,5 +32,7 @@ def test_unsafe_ints_round_as_javascript_reads_them():
 
 def test_lone_surrogates_are_refused_but_a_split_pair_is_one_character():
     assert not typeset.Tag.is_('a\ud800')
+    if not installed('css'):
+        pytest.skip('css needs an optional dependency')
     assert not typeset.Css.is_('p {} /* \udc00 */')
     assert typeset.Css.is_('p {} /* \ud83d\ude00 */')  # a pair held as two code points, as JSON can decode it

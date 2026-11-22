@@ -15,7 +15,7 @@ import pytest
 import chadc00per_typeset as typeset
 from chadc00per_typeset import (Currency, Email, Integer, Ip, Money, Percentage, Region, Scopes, TagSet, ValidationError,
                      extend, type_of)
-from vectors import catalog
+from vectors import catalog, installed
 
 ROOT = Path(__file__).resolve().parents[2]
 CATALOG = catalog()
@@ -169,7 +169,7 @@ def test_check_reports_issues_with_paths():
 
 
 def test_every_type_answers_is_check_describe_and_validate_agreeing_with_normalize():
-    for name in typeset.names:
+    for name in filter(installed, typeset.names):
         Type = typeset.get(name)
         value = example_of(Type)
         assert Type.is_(value), name
@@ -182,7 +182,7 @@ def test_every_type_answers_is_check_describe_and_validate_agreeing_with_normali
 
 
 def test_every_refusal_names_its_path():
-    for name in typeset.names:
+    for name in filter(installed, typeset.names):
         Type = typeset.get(name)
         with pytest.raises(ValidationError) as err:
             Type.normalize(object(), 'field')

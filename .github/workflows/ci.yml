@@ -12,10 +12,18 @@ on:
 permissions:
   contents: read
 
+# A newer push to the same branch or pull request cancels the run it supersedes.
+# (Not when called by release.yml: its group names the tag, and nothing supersedes it.)
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   javascript:
     name: Node ${{ matrix.node }}
     runs-on: ubuntu-latest
+    # A hang fails in minutes instead of holding a runner for six hours.
+    timeout-minutes: 15
     strategy:
       fail-fast: false
       matrix:
@@ -42,6 +50,7 @@ jobs:
   python:
     name: Python ${{ matrix.python }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -66,6 +75,7 @@ jobs:
     # (test_integrations.py) and every other type answers its vectors.
     name: Python without extras
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -81,6 +91,7 @@ jobs:
   wheel:
     name: Wheel
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

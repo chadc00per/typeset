@@ -6,6 +6,7 @@ one does. The V8 context starts on the first code check, so a program that
 never checks code never pays for it. A source is only parsed, never run."""
 from __future__ import annotations
 
+import atexit
 import threading
 from pathlib import Path
 
@@ -21,6 +22,9 @@ def parses(language: str, source: str) -> bool:
         if _context is None:
             from py_mini_racer import MiniRacer
             context = MiniRacer()
+            # Close it at exit: on Python 3.13 (Linux and macOS), mini-racer 0.14.1 left open
+            # keeps the interpreter from exiting after the program ends.
+            atexit.register(context.close)
             context.eval(_BUNDLE.read_text(encoding='utf-8'))
             _context = context
         return _context.call(f'typesetParsers.{language}', source) is True

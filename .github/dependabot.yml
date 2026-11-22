@@ -19,8 +19,16 @@ updates:
     cooldown:
       default-days: 7
     groups:
+      # Minor and patch updates together; a major update gets a pull request of its own,
+      # so one breaking change doesn't hold back the rest.
       development:
         dependency-type: development
+        update-types: [minor, patch]
+    ignore:
+      # TypeScript 7 (the native compiler) drops the JavaScript API that
+      # js/tests/readme.test.js uses to type-check the README's examples.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: pip
     directory: /

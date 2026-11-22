@@ -1,6 +1,7 @@
 """Reading conformance/vectors/: the JavaScript reference's answer for each input."""
 from __future__ import annotations
 
+import importlib.util
 import json
 import math
 from datetime import datetime, timedelta, timezone
@@ -23,6 +24,13 @@ def decode(value):
             return {'NaN': math.nan, 'Infinity': math.inf, '-Infinity': -math.inf, '-0': -0.0}[special]
         return {k: decode(v) for k, v in value.items()}
     return value
+
+
+def installed(name):
+    """Whether the optional dependency a type needs (if any) is installed: without it,
+    the type raises ModuleNotFoundError on every call (CI's "Python without extras")."""
+    from chadc00per_typeset._registry import _EXTRAS
+    return name not in _EXTRAS or importlib.util.find_spec(_EXTRAS[name][0]) is not None
 
 
 def _file(name):
