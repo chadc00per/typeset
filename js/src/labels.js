@@ -87,6 +87,7 @@ export const labels = Object.freeze({
   base64: 'Base64',
   base64url: 'Base64URL',
   uuid: 'UUID',
+  uuidv4: 'UUID v4',
   ulid: 'ULID',
   regex: 'Regular Expression',
   'function': 'Function (Source Code)',

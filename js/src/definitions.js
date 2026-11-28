@@ -94,6 +94,7 @@ import * as upc from './types/upc.js';
 import * as uri from './types/uri.js';
 import * as url from './types/url.js';
 import * as uuid from './types/uuid.js';
+import * as uuidv4 from './types/uuidv4.js';
 import * as vatnumber from './types/vatnumber.js';
 import * as vtt from './types/vtt.js';
 import * as vttrange from './types/vttrange.js';
@@ -190,6 +191,7 @@ const ORDER = [
   base64,
   base64url,
   uuid,
+  uuidv4,
   ulid,
   regex,
   fn,
@@ -273,6 +275,7 @@ export const jsonSchemas = Object.freeze({
   domain: { format: 'hostname' },
   hostname: { format: 'hostname' },
   uuid: { format: 'uuid' },
+  uuidv4: { format: 'uuid' },
   day: { format: 'date' },
   expiry: { format: 'date-time' },
   interval: { format: 'duration' },

@@ -91,6 +91,7 @@
   "base64": "Base64",
   "base64url": "Base64Url",
   "uuid": "Uuid",
+  "uuidv4": "UuidV4",
   "ulid": "Ulid",
   "regex": "Regex",
   "function": "Fn",
@@ -1434,6 +1435,21 @@
    }
   },
   {
+   "name": "uuidv4",
+   "label": "UUID v4",
+   "noun": "UUID v4",
+   "description": "Random (version 4) UUID, lowercase and hyphenated",
+   "example": "9b2e4f1c-6d3a-4e8b-9c71-2f5a8d0e3b64",
+   "aliases": [],
+   "storage": "string",
+   "wire": "string",
+   "collation": "lexical",
+   "constraints": "length",
+   "ui": {
+    "control": "text"
+   }
+  },
+  {
    "name": "ulid",
    "label": "ULID",
    "noun": "ULID",
@@ -1803,6 +1819,9 @@
    "format": "hostname"
   },
   "uuid": {
+   "format": "uuid"
+  },
+  "uuidv4": {
    "format": "uuid"
   },
   "day": {
@@ -2602,6 +2621,13 @@
    "type": "string",
    "format": "uuid",
    "x-typeset": "uuid"
+  },
+  "uuidv4": {
+   "title": "UUID v4",
+   "description": "Random (version 4) UUID, lowercase and hyphenated",
+   "type": "string",
+   "format": "uuid",
+   "x-typeset": "uuidv4"
   },
   "ulid": {
    "title": "ULID",

@@ -1,6 +1,6 @@
 // Typings for @chadc00per/typeset, kept by hand (js/tests/typings.test.js checks them against the runtime).
 
-export type SemanticStringType = 'email' | 'phone' | 'url' | 'uri' | 'domain' | 'hostname' | 'ip' | 'ipaddress' | 'iprange' | 'mimetype' | 'contenttype' | 'place' | 'postalcode' | 'language' | 'country' | 'region' | 'locale' | 'continent' | 'ratio' | 'timezone' | 'weekday' | 'month' | 'roman' | 'barcode' | 'isbn' | 'upc' | 'gtin' | 'asin' | 'imei' | 'vatnumber' | 'decimal' | 'expiry' | 'interval' | 'day' | 'time' | 'year' | 'yearmonth' | 'isoweek' | 'monthday' | 'resolution' | 'numberrange' | 'vtt' | 'vttrange' | 'srt' | 'srtrange' | 'timecode' | 'timeprecision' | 'compassdirection' | 'semver' | 'semverrange' | 'etag' | 'celsius' | 'fahrenheit' | 'kelvin' | 'cron' | 'fiscalperiod' | 'color' | 'emoji' | 'font' | 'base64' | 'base64url' | 'uuid' | 'ulid' | 'regex' | 'function' | 'javascript' | 'python' | 'html' | 'css' | 'svg' | 'tag' | 'currency' | 'geohash' | 'pluscode';
+export type SemanticStringType = 'email' | 'phone' | 'url' | 'uri' | 'domain' | 'hostname' | 'ip' | 'ipaddress' | 'iprange' | 'mimetype' | 'contenttype' | 'place' | 'postalcode' | 'language' | 'country' | 'region' | 'locale' | 'continent' | 'ratio' | 'timezone' | 'weekday' | 'month' | 'roman' | 'barcode' | 'isbn' | 'upc' | 'gtin' | 'asin' | 'imei' | 'vatnumber' | 'decimal' | 'expiry' | 'interval' | 'day' | 'time' | 'year' | 'yearmonth' | 'isoweek' | 'monthday' | 'resolution' | 'numberrange' | 'vtt' | 'vttrange' | 'srt' | 'srtrange' | 'timecode' | 'timeprecision' | 'compassdirection' | 'semver' | 'semverrange' | 'etag' | 'celsius' | 'fahrenheit' | 'kelvin' | 'cron' | 'fiscalperiod' | 'color' | 'emoji' | 'font' | 'base64' | 'base64url' | 'uuid' | 'uuidv4' | 'ulid' | 'regex' | 'function' | 'javascript' | 'python' | 'html' | 'css' | 'svg' | 'tag' | 'currency' | 'geohash' | 'pluscode';
 export type SemanticArrayType = 'datetimewindow' | 'matrix' | 'transformmatrix' | 'tagset' | 'scopes' | 'geo' | 'xy' | 'xyz';
 export type SemanticNumberType = 'integer' | 'int32' | 'smallint' | 'uint8' | 'uint16' | 'uint32' | 'percentage' | 'fraction' | 'angle' | 'probability' | 'multiplier' | 'ttl' | 'bytes';
 export type SemanticObjectType = 'money' | 'geojson';
@@ -103,6 +103,7 @@ export interface TypeInputs {
   base64: string;
   base64url: string;
   uuid: string;
+  uuidv4: string;
   ulid: string;
   regex: string | RegExp;
   'function': string | ((...args: any[]) => unknown);
@@ -403,6 +404,7 @@ export type FontValue = TypeValue<'font'>;
 export type Base64Value = TypeValue<'base64'>;
 export type Base64UrlValue = TypeValue<'base64url'>;
 export type UuidValue = TypeValue<'uuid'>;
+export type UuidV4Value = TypeValue<'uuidv4'>;
 export type UlidValue = TypeValue<'ulid'>;
 export type RegexValue = TypeValue<'regex'>;
 export type FnValue = TypeValue<'function'>;
@@ -501,6 +503,7 @@ export const Font: Type<'font'>;
 export const Base64: Type<'base64'>;
 export const Base64Url: Type<'base64url'>;
 export const Uuid: Type<'uuid'>;
+export const UuidV4: Type<'uuidv4'>;
 export const Ulid: Type<'ulid'>;
 export const Regex: Type<'regex'>;
 export const Fn: Type<'function'>;

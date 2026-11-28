@@ -1,7 +1,7 @@
 # @chadc00per/typeset
 
 Semantic field types for JavaScript and Python: email, phone, URL, money, locale, cron, ISBN,
-GeoJSON and [the rest of 97 types](TYPES.md). Each one turns messy input into one canonical
+GeoJSON and [the rest of 98 types](TYPES.md). Each one turns messy input into one canonical
 value, refuses everything else with a clear message, and describes itself, so you can build
 forms, type pickers and schemas from it. A browser, a Node server and a Python backend store the
 same input as the same value and refuse it with the same message: both packages are held to one
@@ -26,7 +26,7 @@ typeset.Email.is_('nope')                     # → False
 
 - [Install](#install)
 - [Checking values](#checking-values): normalize, check, is, validate, errors
-- [Types](#types): all 97, grouped
+- [Types](#types): all 98, grouped
 - [Forms and pickers](#forms-and-pickers)
 - [Schemas and validation libraries](#schemas-and-validation-libraries): Standard Schema, JSON Schema, Pydantic
 - [Your own types](#your-own-types)
@@ -155,7 +155,7 @@ The full list, with a sample input, the stored value and the rules for each, is 
 - [Product codes](TYPES.md#product-codes): isbn, upc, gtin, asin, imei, barcode
 - [Presentation](TYPES.md#presentation): color, emoji, font, base64, base64url
 - [Labels and access](TYPES.md#labels-and-access): tag, tagset, scopes
-- [Technical](TYPES.md#technical): semver, semverrange, uuid, ulid, regex, function, javascript, python, html, css, svg, etag, cron
+- [Technical](TYPES.md#technical): semver, semverrange, uuid, uuidv4, ulid, regex, function, javascript, python, html, css, svg, etag, cron
 - [Measurement and geometry](TYPES.md#measurement-and-geometry): celsius, fahrenheit, kelvin, compassdirection, geo, geohash, pluscode, geojson, xy, xyz, matrix, transformmatrix
 - [Core types](TYPES.md#core-types): string, number, boolean, date, bigint, array, object, json, any (described, not constructed)
 
@@ -170,8 +170,8 @@ The catalog describes every type, so you can generate inputs and type pickers fr
 ```js
 import { all, describe, get, names } from '@chadc00per/typeset';
 
-names.length;                   // → 97
-all.length;                     // → 106
+names.length;                   // → 98
+all.length;                     // → 107
 get('state') === get('region'); // → true
 describe('weekday').label;      // → 'Weekday'
 describe('weekday').ui;         // → { control: 'select', options: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] }

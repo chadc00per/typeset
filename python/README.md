@@ -1,7 +1,7 @@
 # typeset for Python
 
 Semantic field types: email, phone, URL, money, locale, cron, ISBN, GeoJSON and
-[the rest of 97 types](https://github.com/chadc00per/typeset/blob/main/TYPES.md). Each one turns
+[the rest of 98 types](https://github.com/chadc00per/typeset/blob/main/TYPES.md). Each one turns
 messy input into one canonical value, refuses everything else with a clear message, and
 describes itself so you can build forms, schemas and type pickers from it.
 

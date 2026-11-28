@@ -3,6 +3,11 @@
 All notable changes to `@chadc00per/typeset` (npm) and `chadc00per-typeset` (PyPI) are
 recorded here. Both packages share one version number.
 
+## Unreleased
+
+- New type `uuidv4` (`UuidV4`): a random UUID — version 4 with the RFC 9562 variant —
+  stored like `uuid`, lowercase and hyphenated, from the same spellings.
+
 ## 1.0.1
 
 - Python: on Python 3.13 (Linux and macOS), a program that checked a code type

@@ -20,5 +20,5 @@ export const {
   Color, Emoji, Font, Base64, Tag, TagSet, Scopes, Currency, Geo, XY, XYZ,
   Uri, IpAddress, IpRange, Continent, UInt8, UInt16, UInt32, Decimal, Bytes,
   Year, YearMonth, IsoWeek, MonthDay, Timecode, SemverRange, Kelvin, Base64Url,
-  Uuid, Ulid, Regex, Fn, JavaScript, Python, Html, Css, Svg, Asin, Imei, VatNumber, Money, Geohash, PlusCode, GeoJson
+  Uuid, UuidV4, Ulid, Regex, Fn, JavaScript, Python, Html, Css, Svg, Asin, Imei, VatNumber, Money, Geohash, PlusCode, GeoJson
 } = Object.fromEntries(types.names.map(name => [exportName(name), types.get(name)]));

@@ -106,6 +106,7 @@ Font = types.get('font')
 Base64 = types.get('base64')
 Base64Url = types.get('base64url')
 Uuid = types.get('uuid')
+UuidV4 = types.get('uuidv4')
 Ulid = types.get('ulid')
 Regex = types.get('regex')
 Fn = types.get('function')
@@ -137,7 +138,7 @@ __all__ = [
     'Time', 'Year', 'YearMonth', 'IsoWeek', 'MonthDay', 'Resolution', 'NumberRange', 'Vtt',
     'VttRange', 'Srt', 'SrtRange', 'Timecode', 'TimePrecision', 'CompassDirection', 'Semver',
     'SemverRange', 'Etag', 'Celsius', 'Fahrenheit', 'Kelvin', 'Matrix', 'TransformMatrix',
-    'Cron', 'FiscalPeriod', 'Color', 'Emoji', 'Font', 'Base64', 'Base64Url', 'Uuid', 'Ulid',
+    'Cron', 'FiscalPeriod', 'Color', 'Emoji', 'Font', 'Base64', 'Base64Url', 'Uuid', 'UuidV4', 'Ulid',
     'Regex', 'Fn', 'JavaScript', 'Python', 'Html', 'Css', 'Svg', 'Tag', 'TagSet', 'Scopes', 'Currency', 'Money', 'Geo', 'Geohash', 'PlusCode',
     'GeoJson', 'XY', 'XYZ'
 ]
